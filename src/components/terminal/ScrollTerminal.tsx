@@ -153,7 +153,7 @@ export function ScrollTerminal() {
             </div>
           </LaptopMockup>
           <div
-            className="overflow-hidden"
+            className="hidden overflow-hidden md:block"
             style={{
               width: openingProgress >= 1 ? undefined : `${navRevealProgress * NAV_MAX_PX}px`,
               marginLeft: `${navRevealProgress * 40}px`,

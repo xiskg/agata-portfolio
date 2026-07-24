@@ -6,7 +6,7 @@ type TerminalWindowProps = {
 export function TerminalWindow({ children, className }: TerminalWindowProps) {
   return (
     <div
-      className={`relative overflow-hidden rounded-xl bg-[#17171d] font-mono text-[11px] leading-relaxed md:rounded-md md:text-[13px] ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-xl bg-[#17171d] font-mono text-[12px] leading-relaxed md:rounded-md md:text-[13px] ${className ?? ""}`}
     >
       <div className="flex items-center gap-1.5 bg-[#0c0c10] px-3 py-2">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />

@@ -4,7 +4,7 @@ type LaptopMockupProps = {
 
 export function LaptopMockup({ children }: LaptopMockupProps) {
   return (
-    <div className="w-full max-w-[280px] md:max-w-xl">
+    <div className="w-full max-w-[340px] md:max-w-xl">
       <div className="overflow-hidden rounded-[1.75rem] bg-[#0a0a0c] p-2 shadow-[inset_0_0_0_2px_#2a2a30] md:rounded-t-xl md:rounded-b-sm md:p-2.5 md:pb-3.5">
         <div className="mx-auto mb-1.5 h-1.5 w-10 rounded-full bg-[#1c1c20] md:hidden" />
         <div className="mx-auto mb-2 hidden h-1.5 w-1.5 rounded-full bg-[#333] md:block" />
