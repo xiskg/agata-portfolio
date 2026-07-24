@@ -98,7 +98,7 @@ export function ScrollTerminal() {
       ))}
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-6 px-4">
         <ScrollHint progress={openingProgress} reducedMotion={Boolean(reducedMotion)} />
-        <div className="flex w-full items-center justify-center gap-10">
+        <div className="flex w-full items-center justify-center">
           <LaptopMockup>
             <div className="relative">
               <TerminalWindow>
@@ -154,7 +154,10 @@ export function ScrollTerminal() {
           </LaptopMockup>
           <div
             className="overflow-hidden"
-            style={{ width: openingProgress >= 1 ? undefined : `${navRevealProgress * NAV_MAX_PX}px` }}
+            style={{
+              width: openingProgress >= 1 ? undefined : `${navRevealProgress * NAV_MAX_PX}px`,
+              marginLeft: `${navRevealProgress * 40}px`,
+            }}
           >
             <SceneProgressNav scenes={scenes} activeSceneId={activeSceneId} />
           </div>
