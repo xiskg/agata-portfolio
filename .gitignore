@@ -39,6 +39,9 @@ yarn-error.log*
 # superpowers scratch (brainstorming mockups, sdd progress ledger)
 /.superpowers/
 
+# source CV (has personal data not meant for the public site, e.g. phone number)
+/cv_agata.pdf
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

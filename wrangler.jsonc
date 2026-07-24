@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers (Static Assets) — deploy do portfólio estático da Agata.
+  // Next.js roda com `output: "export"` (next.config.ts), sem SSR/servidor Node;
+  // é só HTML/CSS/JS estático, igual ao personal-website.
+  "name": "agata-portfolio",
+  "compatibility_date": "2026-07-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "out",
+    "not_found_handling": "404-page"
+  }
+}
