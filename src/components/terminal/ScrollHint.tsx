@@ -16,7 +16,7 @@ export function ScrollHint({ progress, reducedMotion }: ScrollHintProps) {
     <div className="overflow-hidden" style={{ height, opacity: 1 - collapseProgress }}>
       <div className="flex flex-col items-center gap-2 text-[#8a8f98]">
         <span className="text-sm">Scroll to begin</span>
-        <span className={`text-lg ${reducedMotion ? "" : "animate-bounce"}`}>↓</span>
+        <span className={`text-lg ${reducedMotion ? "" : "animate-[nudge-down_1.8s_ease-in-out_infinite]"}`}>↓</span>
       </div>
     </div>
   );
