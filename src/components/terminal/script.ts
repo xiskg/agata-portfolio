@@ -1,5 +1,6 @@
 import { resume } from "@/content/resume";
 import type { Scene, Step } from "./types";
+import { formatAbout, formatContact, formatEducation, formatSkills } from "./resumeFormatters";
 
 function slugify(value: string): string {
   return value
@@ -21,35 +22,26 @@ export function buildScenes(): Scene[] {
       id: "intro",
       label: "Intro",
       command: "whoami",
-      output: [`${resume.name} — ${resume.title}`, resume.location, "", ...resume.summary],
+      output: formatAbout(),
     },
     {
       id: "skills",
       label: "Skills",
       command: "cat skills.txt",
-      output: resume.skills.flatMap((group) => [`${group.category}:`, `  ${group.items.join(", ")}`]),
+      output: formatSkills(),
     },
     ...experienceScenes,
     {
       id: "background",
       label: "Background",
       command: "cat education.md",
-      output: [
-        "education:",
-        ...resume.education.map((entry) => `  - ${entry.degree}, ${entry.school} (${entry.period})`),
-        "",
-        "certifications:",
-        ...resume.certifications.map((cert) => `  - ${cert}`),
-        "",
-        "languages:",
-        ...resume.languages.map((lang) => `  - ${lang.name}: ${lang.level}`),
-      ],
+      output: formatEducation(),
     },
     {
       id: "contact",
       label: "Contact",
       command: "cat contact.txt",
-      output: [`email: ${resume.email}`, `linkedin: ${resume.linkedinUrl}`, `github: ${resume.githubUrl}`],
+      output: formatContact(),
     },
   ];
 }

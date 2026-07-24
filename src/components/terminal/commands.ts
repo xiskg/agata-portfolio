@@ -1,4 +1,5 @@
 import { resume } from "@/content/resume";
+import { formatAbout, formatContact, formatEducation, formatSkills } from "./resumeFormatters";
 
 export type CommandResult = {
   lines: string[];
@@ -21,11 +22,9 @@ export function runCommand(rawInput: string): CommandResult {
     case "help":
       return { lines: [`Available commands: ${COMMAND_NAMES.join(", ")}`] };
     case "about":
-      return { lines: [`${resume.name} — ${resume.title}`, resume.location, "", ...resume.summary] };
+      return { lines: formatAbout() };
     case "skills":
-      return {
-        lines: resume.skills.flatMap((group) => [`${group.category}:`, `  ${group.items.join(", ")}`]),
-      };
+      return { lines: formatSkills() };
     case "experience":
       return {
         lines: resume.experience.flatMap((job) => [
@@ -35,22 +34,9 @@ export function runCommand(rawInput: string): CommandResult {
         ]),
       };
     case "education":
-      return {
-        lines: [
-          "education:",
-          ...resume.education.map((entry) => `  - ${entry.degree}, ${entry.school} (${entry.period})`),
-          "",
-          "certifications:",
-          ...resume.certifications.map((cert) => `  - ${cert}`),
-          "",
-          "languages:",
-          ...resume.languages.map((lang) => `  - ${lang.name}: ${lang.level}`),
-        ],
-      };
+      return { lines: formatEducation() };
     case "contact":
-      return {
-        lines: [`email: ${resume.email}`, `linkedin: ${resume.linkedinUrl}`, `github: ${resume.githubUrl}`],
-      };
+      return { lines: formatContact() };
     case "clear":
       return { lines: [], clear: true };
     default:

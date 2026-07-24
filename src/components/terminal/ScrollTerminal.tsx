@@ -8,6 +8,7 @@ import { useScrollSteps } from "./useScrollSteps";
 import { TerminalWindow } from "./TerminalWindow";
 import { LaptopMockup } from "./LaptopMockup";
 import { SceneProgressNav } from "./SceneProgressNav";
+import { PROMPT_PREFIX } from "./prompt";
 
 const STEP_PX = 80;
 const VISIBLE_LINES = 12;
@@ -38,7 +39,7 @@ export function ScrollTerminal() {
           <TerminalWindow>
             {visibleLines.map((line) => (
               <div key={line.key} className={line.kind === "prompt" ? "text-[#6ad3ff]" : "whitespace-pre-wrap"}>
-                {line.kind === "prompt" ? `agata@portfolio:~$ ${line.text}` : line.text}
+                {line.kind === "prompt" ? `${PROMPT_PREFIX} ${line.text}` : line.text}
                 {line.inProgress && <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />}
               </div>
             ))}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { runCommand } from "./commands";
 import { TerminalWindow } from "./TerminalWindow";
+import { PROMPT_PREFIX } from "./prompt";
 
 type HistoryEntry = {
   command: string;
@@ -15,6 +16,10 @@ export function InteractiveTerminal() {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (input.trim() === "") {
+      setInput("");
+      return;
+    }
     const result = runCommand(input);
     setHistory((previous) => (result.clear ? [] : [...previous, { command: input, lines: result.lines }]));
     setInput("");
@@ -24,7 +29,7 @@ export function InteractiveTerminal() {
     <TerminalWindow>
       {history.map((entry, index) => (
         <div key={index}>
-          <div className="text-[#6ad3ff]">agata@portfolio:~$ {entry.command}</div>
+          <div className="text-[#6ad3ff]">{PROMPT_PREFIX} {entry.command}</div>
           {entry.lines.map((line, lineIndex) => (
             <div key={lineIndex} className="whitespace-pre-wrap">
               {line}
@@ -33,7 +38,7 @@ export function InteractiveTerminal() {
         </div>
       ))}
       <form onSubmit={handleSubmit} className="flex items-center gap-1 text-[#6ad3ff]">
-        <span>agata@portfolio:~$</span>
+        <span>{PROMPT_PREFIX}</span>
         <input
           value={input}
           onChange={(event) => setInput(event.target.value)}
