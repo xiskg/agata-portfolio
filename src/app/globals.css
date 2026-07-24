@@ -29,3 +29,43 @@ body {
     opacity: 1;
   }
 }
+
+/* CRT vibe, approximating a stacked Ghostty custom-shader chain
+   (bettercrt + glow-rgbsplit-twitchy + retro-tint) in plain CSS so
+   terminal text stays crisp, selectable, and accessible. */
+.crt-glow {
+  text-shadow: 0 0 6px rgba(212, 212, 220, 0.25);
+  animation: crt-glow-glitch 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-glow {
+    animation: none;
+  }
+}
+
+@keyframes crt-glow-glitch {
+  0%,
+  78%,
+  100% {
+    text-shadow: 0 0 6px rgba(212, 212, 220, 0.25);
+  }
+  82% {
+    text-shadow:
+      0 0 6px rgba(212, 212, 220, 0.25),
+      -2px 0 rgba(255, 32, 96, 0.55),
+      2px 0 rgba(0, 220, 255, 0.55);
+  }
+  86% {
+    text-shadow:
+      0 0 6px rgba(212, 212, 220, 0.25),
+      2px 0 rgba(255, 32, 96, 0.45),
+      -2px 0 rgba(0, 220, 255, 0.45);
+  }
+  90% {
+    text-shadow:
+      0 0 6px rgba(212, 212, 220, 0.25),
+      -1px 0 rgba(255, 32, 96, 0.3),
+      1px 0 rgba(0, 220, 255, 0.3);
+  }
+}
