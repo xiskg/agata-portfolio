@@ -32,9 +32,11 @@ export function currentSceneId(steps: Step[], stepIndex: number): string | undef
 }
 
 function toRenderedLine(step: Step, index: number, inProgress: boolean, fraction: number): RenderedLine {
+  const fullText = step.kind === "command" ? step.command : step.line;
+  const text = inProgress ? fullText.slice(0, Math.round(fullText.length * fraction)) : fullText;
+
   if (step.kind === "command") {
-    const text = inProgress ? step.command.slice(0, Math.round(step.command.length * fraction)) : step.command;
     return { key: `${step.sceneId}-cmd-${index}`, sceneId: step.sceneId, kind: "prompt", text, inProgress };
   }
-  return { key: `${step.sceneId}-out-${index}`, sceneId: step.sceneId, kind: "output", text: step.line, inProgress: false };
+  return { key: `${step.sceneId}-out-${index}`, sceneId: step.sceneId, kind: "output", text, inProgress };
 }

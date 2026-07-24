@@ -27,8 +27,16 @@ describe("getVisibleLines", () => {
     expect(lines[0]).toMatchObject({ kind: "prompt", text: "whoami", inProgress: false });
   });
 
-  it("reveals output lines fully as soon as their step starts, even mid-step", () => {
+  it("types an output line's characters in mid-step too, just like a command", () => {
     const lines = getVisibleLines(steps, 1.3, false);
+    const outputLine = lines[lines.length - 1];
+    expect(outputLine).toMatchObject({ kind: "output", inProgress: true });
+    expect(outputLine.text.length).toBeGreaterThan(0);
+    expect(outputLine.text.length).toBeLessThan("Agata".length);
+  });
+
+  it("shows the full output line once its step completes", () => {
+    const lines = getVisibleLines(steps, 2, false);
     expect(lines[lines.length - 1]).toMatchObject({ kind: "output", text: "Agata", inProgress: false });
   });
 

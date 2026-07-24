@@ -45,7 +45,7 @@ export function ScrollTerminal() {
                   {line.inProgress && <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />}
                 </div>
               ) : (
-                <TerminalOutputLine key={line.key} text={line.text} />
+                <TerminalOutputLine key={line.key} text={line.text} caret={line.inProgress} />
               ),
             )}
           </TerminalWindow>
