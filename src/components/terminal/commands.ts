@@ -15,7 +15,7 @@ const NEOFETCH_LINES = [
   "      > ^ <",
   "",
   "OS: AgataOS (Backend Edition)",
-  "Shell: Go / Java / bash",
+  "Shell: Go / bash",
   "Uptime: 3+ years in production",
   "Pets: Pimpi & Cora (2 cats)",
   "Hobbies: reading, gaming, board games, travel",

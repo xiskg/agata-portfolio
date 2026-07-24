@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Agata Domingues — Backend Software Engineer",
-  description: "Backend software engineer portfolio — Go, Java, distributed systems, and AI-assisted engineering.",
+  description: "Backend software engineer portfolio — Go, distributed systems, and AI-assisted engineering.",
 };
 
 export default function RootLayout({

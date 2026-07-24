@@ -46,18 +46,18 @@ export const resume: ResumeData = {
   githubUrl: "https://github.com/htadmg",
   summary: [
     "Backend Software Engineer with 3+ years of experience designing and maintaining scalable, high-availability systems for large-scale marketplace and B2B platforms.",
-    "Currently building distributed services in Go and Java at Mercado Libre, Latin America's largest e-commerce and fintech company, integrating REST APIs, message-queue pipelines, and cloud data warehousing to support high-volume B2B operations.",
+    "Currently building distributed services in Go at Mercado Libre, Latin America's largest e-commerce and fintech company, integrating REST APIs, message-queue pipelines, and cloud data warehousing to support high-volume B2B operations.",
     "Embeds AI (Claude) across the full development lifecycle, from design and specs to implementation, code review, and CI/CD, to ship faster without compromising quality.",
     "Skilled in microservices architecture, API and SDK design, and relational database optimization, with a proven ability to improve system performance and reliability.",
   ],
   summaryShort: [
     "Backend Software Engineer, 3+ years building scalable, high-availability systems for marketplace and B2B platforms.",
-    "Currently at Mercado Libre — Go, Java, distributed systems, and AI-assisted engineering end to end.",
+    "Currently at Mercado Libre — Go, distributed systems, and AI-assisted engineering end to end.",
   ],
   skills: [
     {
       category: "Languages & Frameworks",
-      items: ["Go (Golang)", "Java", "C# / .NET", "Python", "JavaScript", "SQL"],
+      items: ["Go (Golang)", "C# / .NET", "Python", "JavaScript", "SQL"],
     },
     {
       category: "Backend & Architecture",
@@ -103,7 +103,7 @@ export const resume: ResumeData = {
       role: "Backend Software Developer",
       period: "11/2024 – Present",
       bullets: [
-        "Develop and maintain B2B backend services in Go and Java, supporting high-throughput operations across one of Latin America's largest technology ecosystems.",
+        "Develop and maintain B2B backend services in Go, supporting high-throughput operations across one of Latin America's largest technology ecosystems.",
         "Design and integrate RESTful APIs and SDKs consumed by internal teams and external partners, standardizing contracts and improving developer experience.",
         "Build event-driven data pipelines using message queues and Google BigQuery to process and analyze large-scale transactional data.",
         "Integrate AI (Claude) across the full software development lifecycle, from drafting RFCs, PRDs, and implementation specs to daily development, automated code review, and CI/CD pipelines.",

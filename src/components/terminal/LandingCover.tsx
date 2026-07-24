@@ -37,7 +37,7 @@ export function LandingCover({ progress }: LandingCoverProps) {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-none bg-[#17171d] md:rounded-md"
+      className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-[#17171d] md:rounded-md"
       style={{ opacity: 1 - progress, transform: `scale(${1 + progress * 0.08})` }}
     >
       <div
