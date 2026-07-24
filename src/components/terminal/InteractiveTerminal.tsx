@@ -4,6 +4,7 @@ import { useState } from "react";
 import { runCommand } from "./commands";
 import { TerminalWindow } from "./TerminalWindow";
 import { PROMPT_PREFIX } from "./prompt";
+import { TerminalOutputLine } from "./TerminalOutputLine";
 
 type HistoryEntry = {
   command: string;
@@ -31,9 +32,7 @@ export function InteractiveTerminal() {
         <div key={index}>
           <div className="text-[#6ad3ff]">{PROMPT_PREFIX} {entry.command}</div>
           {entry.lines.map((line, lineIndex) => (
-            <div key={lineIndex} className="whitespace-pre-wrap">
-              {line}
-            </div>
+            <TerminalOutputLine key={lineIndex} text={line} />
           ))}
         </div>
       ))}

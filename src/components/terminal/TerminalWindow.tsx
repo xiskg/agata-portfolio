@@ -11,7 +11,7 @@ export function TerminalWindow({ children, className }: TerminalWindowProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
       </div>
-      <div className="min-h-[220px] px-4 py-3 text-[#d4d4dc]">{children}</div>
+      <div className="flex h-[320px] flex-col justify-end overflow-hidden px-4 py-3 text-[#d4d4dc]">{children}</div>
     </div>
   );
 }

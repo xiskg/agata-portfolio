@@ -9,6 +9,7 @@ import { TerminalWindow } from "./TerminalWindow";
 import { LaptopMockup } from "./LaptopMockup";
 import { SceneProgressNav } from "./SceneProgressNav";
 import { PROMPT_PREFIX } from "./prompt";
+import { TerminalOutputLine } from "./TerminalOutputLine";
 
 const STEP_PX = 80;
 const VISIBLE_LINES = 12;
@@ -37,12 +38,16 @@ export function ScrollTerminal() {
       <div className="sticky top-0 flex h-screen items-center justify-center gap-10 px-4">
         <LaptopMockup>
           <TerminalWindow>
-            {visibleLines.map((line) => (
-              <div key={line.key} className={line.kind === "prompt" ? "text-[#6ad3ff]" : "whitespace-pre-wrap"}>
-                {line.kind === "prompt" ? `${PROMPT_PREFIX} ${line.text}` : line.text}
-                {line.inProgress && <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />}
-              </div>
-            ))}
+            {visibleLines.map((line) =>
+              line.kind === "prompt" ? (
+                <div key={line.key} className="text-[#6ad3ff]">
+                  {`${PROMPT_PREFIX} ${line.text}`}
+                  {line.inProgress && <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />}
+                </div>
+              ) : (
+                <TerminalOutputLine key={line.key} text={line.text} />
+              ),
+            )}
           </TerminalWindow>
         </LaptopMockup>
         <SceneProgressNav scenes={scenes} activeSceneId={activeSceneId} />
