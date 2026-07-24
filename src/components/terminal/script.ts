@@ -1,6 +1,6 @@
 import { resume } from "@/content/resume";
 import type { Scene, Step } from "./types";
-import { formatAbout, formatContact, formatEducation, formatSkills } from "./resumeFormatters";
+import { formatContact, formatEducation, formatIntroTeaser, formatSkills } from "./resumeFormatters";
 
 function slugify(value: string): string {
   return value
@@ -22,7 +22,7 @@ export function buildScenes(): Scene[] {
       id: "intro",
       label: "Intro",
       command: "whoami",
-      output: formatAbout(),
+      output: formatIntroTeaser(),
     },
     {
       id: "skills",

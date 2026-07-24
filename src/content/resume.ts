@@ -29,6 +29,7 @@ export type ResumeData = {
   linkedinUrl: string;
   githubUrl: string;
   summary: string[];
+  summaryShort: string[];
   skills: SkillGroup[];
   experience: ExperienceEntry[];
   education: EducationEntry[];
@@ -48,6 +49,10 @@ export const resume: ResumeData = {
     "Currently building distributed services in Go and Java at Mercado Libre, Latin America's largest e-commerce and fintech company, integrating REST APIs, message-queue pipelines, and cloud data warehousing to support high-volume B2B operations.",
     "Embeds AI (Claude) across the full development lifecycle, from design and specs to implementation, code review, and CI/CD, to ship faster without compromising quality.",
     "Skilled in microservices architecture, API and SDK design, and relational database optimization, with a proven ability to improve system performance and reliability.",
+  ],
+  summaryShort: [
+    "Backend Software Engineer, 3+ years building scalable, high-availability systems for marketplace and B2B platforms.",
+    "Currently at Mercado Libre — Go, Java, distributed systems, and AI-assisted engineering end to end.",
   ],
   skills: [
     {

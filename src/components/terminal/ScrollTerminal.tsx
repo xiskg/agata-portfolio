@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { buildScenes, buildSteps, getSceneStartOffsets } from "./script";
 import { currentSceneId, getVisibleLines } from "./renderVisibleLines";
@@ -10,9 +10,16 @@ import { LaptopMockup } from "./LaptopMockup";
 import { SceneProgressNav } from "./SceneProgressNav";
 import { PROMPT_PREFIX } from "./prompt";
 import { TerminalOutputLine } from "./TerminalOutputLine";
+import { runCommand } from "./commands";
 
 const STEP_PX = 80;
 const VISIBLE_LINES = 12;
+const DWELL_PX = 900;
+
+type HistoryEntry = {
+  command: string;
+  lines: string[];
+};
 
 export function ScrollTerminal() {
   const scenes = useMemo(() => buildScenes(), []);
@@ -22,11 +29,32 @@ export function ScrollTerminal() {
 
   const { containerRef, stepIndex } = useScrollSteps(steps.length);
 
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [input, setInput] = useState("");
+
+  const playbackComplete = stepIndex >= steps.length;
   const visibleLines = getVisibleLines(steps, stepIndex, Boolean(reducedMotion)).slice(-VISIBLE_LINES);
   const activeSceneId = currentSceneId(steps, stepIndex);
+  const scrubHeight = steps.length * STEP_PX;
+
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (input.trim() === "") {
+      setInput("");
+      return;
+    }
+    const result = runCommand(input);
+    setHistory((previous) => (result.clear ? [] : [...previous, { command: input, lines: result.lines }]));
+    setInput("");
+  }
 
   return (
-    <div ref={containerRef} style={{ height: `${steps.length * STEP_PX}px` }} className="relative">
+    <div className="relative" style={{ height: `${scrubHeight + DWELL_PX}px` }}>
+      <div
+        ref={containerRef}
+        aria-hidden="true"
+        style={{ position: "absolute", top: 0, left: 0, width: 1, height: scrubHeight }}
+      />
       {scenes.map((scene) => (
         <div
           key={scene.id}
@@ -42,11 +70,39 @@ export function ScrollTerminal() {
               line.kind === "prompt" ? (
                 <div key={line.key} className="text-[#6ad3ff]">
                   {`${PROMPT_PREFIX} ${line.text}`}
-                  {line.inProgress && <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />}
+                  {line.inProgress && (
+                    <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#d4d4dc] align-middle" />
+                  )}
                 </div>
               ) : (
                 <TerminalOutputLine key={line.key} text={line.text} caret={line.inProgress} />
               ),
+            )}
+            {playbackComplete && (
+              <>
+                <div className="text-[#8a8f98]">Type a command to keep exploring — try &apos;help&apos;.</div>
+                {history.map((entry, index) => (
+                  <div key={index}>
+                    <div className="text-[#6ad3ff]">
+                      {PROMPT_PREFIX} {entry.command}
+                    </div>
+                    {entry.lines.map((line, lineIndex) => (
+                      <TerminalOutputLine key={lineIndex} text={line} />
+                    ))}
+                  </div>
+                ))}
+                <form onSubmit={handleSubmit} className="flex items-center gap-1 text-[#6ad3ff]">
+                  <span>{PROMPT_PREFIX}</span>
+                  <input
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    autoComplete="off"
+                    spellCheck={false}
+                    aria-label="Terminal command input"
+                    className="flex-1 bg-transparent text-[#d4d4dc] outline-none"
+                  />
+                </form>
+              </>
             )}
           </TerminalWindow>
         </LaptopMockup>

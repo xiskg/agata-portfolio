@@ -4,6 +4,10 @@ export function formatAbout(): string[] {
   return [`${resume.name} — ${resume.title}`, resume.location, "", ...resume.summary];
 }
 
+export function formatIntroTeaser(): string[] {
+  return [`${resume.name} — ${resume.title}`, resume.location, "", ...resume.summaryShort];
+}
+
 export function formatSkills(): string[] {
   return resume.skills.flatMap((group) => [`${group.category}:`, `  ${group.items.join(", ")}`]);
 }
