@@ -15,6 +15,7 @@ import { runCommand } from "./commands";
 const STEP_PX = 80;
 const VISIBLE_LINES = 12;
 const DWELL_PX = 900;
+const HINT_TEXT = "Type a command to keep exploring — try 'help'.";
 
 type HistoryEntry = {
   command: string;
@@ -27,15 +28,24 @@ export function ScrollTerminal() {
   const sceneOffsets = useMemo(() => getSceneStartOffsets(scenes, STEP_PX), [scenes]);
   const reducedMotion = useReducedMotion();
 
-  const { containerRef, stepIndex } = useScrollSteps(steps.length);
+  // One extra virtual step beyond the résumé steps, reserved for typing out
+  // HINT_TEXT, so the hand-off into the interactive prompt keeps typing
+  // continuously instead of popping in the instant playback finishes.
+  const hintStepIndex = steps.length;
+  const { containerRef, stepIndex } = useScrollSteps(hintStepIndex + 1);
 
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [input, setInput] = useState("");
 
-  const playbackComplete = stepIndex >= steps.length;
+  const pastHintStart = stepIndex > hintStepIndex;
+  const hintFraction = reducedMotion ? (pastHintStart ? 1 : 0) : Math.min(Math.max(stepIndex - hintStepIndex, 0), 1);
+  const hintText = HINT_TEXT.slice(0, Math.round(HINT_TEXT.length * hintFraction));
+  const hintTyping = !reducedMotion && pastHintStart && hintFraction < 1;
+  const playbackComplete = reducedMotion ? pastHintStart : hintFraction >= 1;
+
   const visibleLines = getVisibleLines(steps, stepIndex, Boolean(reducedMotion)).slice(-VISIBLE_LINES);
   const activeSceneId = currentSceneId(steps, stepIndex);
-  const scrubHeight = steps.length * STEP_PX;
+  const scrubHeight = (hintStepIndex + 1) * STEP_PX;
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -78,9 +88,16 @@ export function ScrollTerminal() {
                 <TerminalOutputLine key={line.key} text={line.text} caret={line.inProgress} />
               ),
             )}
+            {pastHintStart && (
+              <div className="text-[#8a8f98]">
+                {hintText}
+                {hintTyping && (
+                  <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-[#8a8f98] align-middle" />
+                )}
+              </div>
+            )}
             {playbackComplete && (
               <>
-                <div className="text-[#8a8f98]">Type a command to keep exploring — try &apos;help&apos;.</div>
                 {history.map((entry, index) => (
                   <div key={index}>
                     <div className="text-[#6ad3ff]">

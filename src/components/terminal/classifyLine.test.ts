@@ -27,6 +27,15 @@ describe("classifyLine", () => {
     expect(classifyLine("linkedin: #")).toEqual({ kind: "field", key: "linkedin", value: "#" });
   });
 
+  it("classifies any unindented 'key: value' line as a field, not just email/linkedin/github", () => {
+    expect(classifyLine("OS: AgataOS (Backend Edition)")).toEqual({
+      kind: "field",
+      key: "OS",
+      value: "AgataOS (Backend Edition)",
+    });
+    expect(classifyLine("Pets: Pimpi & Cora")).toEqual({ kind: "field", key: "Pets", value: "Pimpi & Cora" });
+  });
+
   it("classifies a dash-prefixed line as a bullet, stripping the marker", () => {
     expect(classifyLine("- Develop and maintain B2B backend services")).toEqual({
       kind: "bullet",

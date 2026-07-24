@@ -9,7 +9,7 @@ export type ClassifiedLine =
 export function classifyLine(text: string): ClassifiedLine {
   if (text.trim() === "") return { kind: "blank" };
 
-  const fieldMatch = /^(email|linkedin|github):\s(.+)$/.exec(text);
+  const fieldMatch = /^([A-Za-z][\w /.'-]*):\s(.+)$/.exec(text);
   if (fieldMatch) return { kind: "field", key: fieldMatch[1], value: fieldMatch[2] };
 
   if (/^\s*-\s/.test(text)) return { kind: "bullet", text: text.replace(/^\s*-\s/, "") };
