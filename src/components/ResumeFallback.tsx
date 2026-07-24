@@ -70,11 +70,11 @@ export function ResumeFallback() {
           {resume.email}
         </a>
         {" · "}
-        <a href={resume.linkedinUrl} className="underline">
+        <a href={resume.linkedinUrl} target="_blank" rel="noopener noreferrer" className="underline">
           LinkedIn
         </a>
         {" · "}
-        <a href={resume.githubUrl} className="underline">
+        <a href={resume.githubUrl} target="_blank" rel="noopener noreferrer" className="underline">
           GitHub
         </a>
       </p>
