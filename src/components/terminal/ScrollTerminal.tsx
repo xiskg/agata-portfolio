@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { buildScenes, buildSteps, getSceneStartOffsets } from "./script";
 import { currentSceneId, getVisibleLines } from "./renderVisibleLines";
@@ -36,12 +36,19 @@ export function ScrollTerminal() {
 
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const pastHintStart = stepIndex > hintStepIndex;
   const hintFraction = reducedMotion ? (pastHintStart ? 1 : 0) : Math.min(Math.max(stepIndex - hintStepIndex, 0), 1);
   const hintText = HINT_TEXT.slice(0, Math.round(HINT_TEXT.length * hintFraction));
   const hintTyping = !reducedMotion && pastHintStart && hintFraction < 1;
   const playbackComplete = reducedMotion ? pastHintStart : hintFraction >= 1;
+
+  useEffect(() => {
+    if (playbackComplete && window.matchMedia("(min-width: 768px)").matches) {
+      inputRef.current?.focus();
+    }
+  }, [playbackComplete]);
 
   const visibleLines = getVisibleLines(steps, stepIndex, Boolean(reducedMotion)).slice(-VISIBLE_LINES);
   const activeSceneId = currentSceneId(steps, stepIndex);
@@ -111,6 +118,7 @@ export function ScrollTerminal() {
                 <form onSubmit={handleSubmit} className="flex items-center gap-1 text-[#6ad3ff]">
                   <span>{PROMPT_PREFIX}</span>
                   <input
+                    ref={inputRef}
                     value={input}
                     onChange={(event) => setInput(event.target.value)}
                     autoComplete="off"
