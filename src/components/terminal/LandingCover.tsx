@@ -42,7 +42,7 @@ export function LandingCover({ progress }: LandingCoverProps) {
     >
       <div
         key={frameIndex}
-        className="flex animate-[fade-in_0.4s_ease-out] flex-col items-center gap-3 font-mono text-[#6ad3ff]"
+        className="flex animate-[fade-in_0.4s_ease-out] flex-col items-center gap-3 font-mono text-[#6ad3ff] lowercase"
       >
         <pre className="text-center text-sm leading-tight">{frame.art.join("\n")}</pre>
         <span className="text-xs text-[#8a8f98]">{frame.caption}</span>
