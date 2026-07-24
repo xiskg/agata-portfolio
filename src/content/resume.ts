@@ -42,8 +42,8 @@ export const resume: ResumeData = {
   title: "Backend Software Engineer",
   location: "Brazil",
   email: "agatadominguestech@gmail.com",
-  linkedinUrl: "#", // TODO: replace with Agata's real LinkedIn URL
-  githubUrl: "#", // TODO: replace with Agata's real GitHub URL
+  linkedinUrl: "https://www.linkedin.com/in/agatadominguesfarias/",
+  githubUrl: "https://github.com/htadmg",
   summary: [
     "Backend Software Engineer with 3+ years of experience designing and maintaining scalable, high-availability systems for large-scale marketplace and B2B platforms.",
     "Currently building distributed services in Go and Java at Mercado Libre, Latin America's largest e-commerce and fintech company, integrating REST APIs, message-queue pipelines, and cloud data warehousing to support high-volume B2B operations.",
